@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\Windows\\media-player-windows\\media-player-windows.csproj": {}
+    "D:\\Windows\\media-player-windows\\media-player-windows\\media-player-windows.csproj": {}
   },
   "projects": {
-    "D:\\Windows\\media-player-windows\\media-player-windows.csproj": {
+    "D:\\Windows\\media-player-windows\\media-player-windows\\media-player-windows.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Windows\\media-player-windows\\media-player-windows.csproj",
+        "projectUniqueName": "D:\\Windows\\media-player-windows\\media-player-windows\\media-player-windows.csproj",
         "projectName": "media-player-windows",
-        "projectPath": "D:\\Windows\\media-player-windows\\media-player-windows.csproj",
+        "projectPath": "D:\\Windows\\media-player-windows\\media-player-windows\\media-player-windows.csproj",
         "packagesPath": "C:\\Users\\HAI DANG\\.nuget\\packages\\",
-        "outputPath": "D:\\Windows\\media-player-windows\\obj\\",
+        "outputPath": "D:\\Windows\\media-player-windows\\media-player-windows\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
