@@ -13,6 +13,8 @@ namespace media_player_windows.classes
 
         public string name { get; set; }
 
+        public string author { get; set; }
+
         public string duration { get; set; }
 
         public event PropertyChangedEventHandler? PropertyChanged;

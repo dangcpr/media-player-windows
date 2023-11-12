@@ -125,14 +125,22 @@ namespace media_player_windows.GUI
                     var nameWithExts = names[names.Length - 1];
 
                     var nameWithExt = nameWithExts.Split(".");
-                    var name = nameWithExt[0];
+
+                    var name = nameWithExt[0].Split("-")[0];
+                    var author = nameWithExt[0].Split("-")[1];
 
                     var tfile = TagLib.File.Create(fileName);
                     StringBuilder sb = new();
                     sb.AppendLine(tfile.Properties.Duration.ToString(@"hh\:mm\:ss"));
                     var duration = sb.ToString();
 
-                    myClasses.videos.Add(new media_player_windows.classes.Video() { url = fileName, name = name, duration = duration });
+                    myClasses.videos.Add(new media_player_windows.classes.Video()
+                    { 
+                        url = fileName,
+                        name = name,
+                        author = author,
+                        duration = duration
+                    });
                 }
 
                 myClasses.targetVideoUrl = myClasses.videos[0].url;

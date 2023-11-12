@@ -4,12 +4,14 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:media_player_windows.GUI"
-        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         mc:Ignorable="d"
+        
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"       
         WindowStartupLocation="CenterScreen"
         ResizeMode="NoResize"
         Loaded="Window_Loaded"
-        Title="MainMediaApp" Height="700" Width="1280">
+        
+        Title="MainMediaApp" Height="750" Width="1280">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition></ColumnDefinition>
@@ -36,7 +38,7 @@
                 </StackPanel>
 
                 <StackPanel Margin="5 0 5 0">
-                    <Button Name="addPlaylistBtn" Height="40" Background="Black" BorderThickness="0" Click="addPlaylistBtn_Click">
+                    <Button Name="addPlaylistBtn" Height="50" Background="Black" BorderThickness="0" Click="addPlaylistBtn_Click">
                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                             <materialDesign:PackIcon Kind="PlaylistPlus" Foreground="White" Height="30" Width="30" VerticalAlignment="Center" Margin="0 0 20 0"/>
                             <TextBlock Text="Add Playlist" Foreground="White" FontSize="15" FontWeight="DemiBold" VerticalAlignment="Center"/>
@@ -47,7 +49,7 @@
 
             <StackPanel Grid.Column="1" Orientation="Vertical" Background="#141414">
                 <MediaElement Name="mePlayer" Grid.Column="1" Width="500" Height="300" LoadedBehavior="Manual" Stretch="Fill" Margin="0 30 0 30" MediaEnded="mePlayer_MediaEnded" />
-                <ListView Name="playlistListView" Margin="20 0 20 0" SelectionChanged="playlist_SelectionChanged">
+                <ListView Name="playlistListView" Height="200" Margin="20 0 20 0" SelectionChanged="playlist_SelectionChanged">
                     <ListView.ItemTemplate>
                         <DataTemplate>
                             <Grid Width="900">
@@ -58,7 +60,10 @@
                                 </Grid.ColumnDefinitions>
 
                                 <materialDesign:PackIcon Grid.Column="0" Kind="MusicNote" Foreground="White" Height="20" Width="20" Margin="0 0 20 0"/>
-                                <TextBlock Grid.Column="1" Text="{Binding name}" Foreground="White" FontWeight="Bold" />
+                                <StackPanel Grid.Column="1" Orientation="Vertical">
+                                    <TextBlock Text="{Binding name}" Foreground="White" FontWeight="Bold" Margin="0 0 0 10" />
+                                    <TextBlock Text="{Binding author}" Foreground="White" FontWeight="Regular" />
+                                </StackPanel>
                                 <TextBlock Grid.Column="2" Text="{Binding duration}" Foreground="White" FontWeight="Bold" />
                             </Grid>
                         </DataTemplate>
