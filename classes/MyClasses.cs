@@ -11,6 +11,13 @@ namespace media_player_windows.classes
     {
         public string targetVideoUrl { get; set; }
 
+        public string audioMode { get; set; }
+
+        public string replayMode { get; set; }
+
+        public string shuffleMode { get; set; }
+
+
         public List<media_player_windows.classes.Video> videos = new List<media_player_windows.classes.Video>();
 
         public event PropertyChangedEventHandler? PropertyChanged;
