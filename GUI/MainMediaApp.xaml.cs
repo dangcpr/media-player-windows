@@ -46,6 +46,8 @@ namespace media_player_windows.GUI
             myClasses.audioMode = "PlayCircle";
             myClasses.replayMode = "White";
             myClasses.shuffleMode = "White";
+
+            this.KeyDown += new KeyEventHandler(MainWindow_KeyDown);
         }
 
         private void timer_Tick(object sender, EventArgs e)
@@ -376,6 +378,87 @@ namespace media_player_windows.GUI
         {
             var setValue = 0.1 * sliVolume.Value;
             mePlayer.Volume = setValue;
+        }
+
+        void MainWindow_KeyDown(object sender, KeyEventArgs e)
+        {
+            if(e.Key.ToString() == "Space")
+            {
+                if (myClasses.audioMode == "PlayCircle")
+                {
+                    myClasses.audioMode = "PauseCircle";
+                    mePlayer.Play();
+                }
+                else if (myClasses.audioMode == "PauseCircle")
+                {
+                    myClasses.audioMode = "PlayCircle";
+                    mePlayer.Pause();
+                }
+            }
+            else if(e.Key.ToString() == "Right")
+            {
+                int index = myClasses.videos.FindIndex(a => a.url == myClasses.targetVideoUrl);
+
+                // Get next media url
+                if (index != 0)
+                {
+                    myClasses.targetVideoUrl = myClasses.videos[index - 1].url;
+                    myClasses.targetVideoName = myClasses.videos[index - 1].name;
+                    myClasses.targetVideoAuthor = myClasses.videos[index - 1].author;
+                }
+                else
+                {
+                    myClasses.targetVideoUrl = myClasses.videos[myClasses.videos.Count - 1].url;
+                    myClasses.targetVideoName = myClasses.videos[myClasses.videos.Count - 1].name;
+                    myClasses.targetVideoAuthor = myClasses.videos[myClasses.videos.Count - 1].author;
+                }
+
+                // Set video duration
+                setMediaDuration(myClasses.targetVideoUrl);
+
+                // Set media source
+                mePlayer.Source = new Uri(myClasses.targetVideoUrl);
+                thumnailPlayer.Source = new Uri(myClasses.targetVideoUrl);
+                mePlayer.Play();
+            }
+            else if (e.Key.ToString() == "Left")
+            {
+                int index = myClasses.videos.FindIndex(a => a.url == myClasses.targetVideoUrl);
+
+                // Get next media url
+                if (index != (myClasses.videos.Count() - 1))
+                {
+                    myClasses.targetVideoUrl = myClasses.videos[index + 1].url;
+                    myClasses.targetVideoName = myClasses.videos[index + 1].name;
+                    myClasses.targetVideoAuthor = myClasses.videos[index + 1].author;
+                }
+                else
+                {
+                    myClasses.targetVideoUrl = myClasses.videos[0].url;
+                    myClasses.targetVideoName = myClasses.videos[0].name;
+                    myClasses.targetVideoAuthor = myClasses.videos[0].author;
+                }
+
+                // Set video duration
+                setMediaDuration(myClasses.targetVideoUrl);
+
+                // Set media source
+                mePlayer.Source = new Uri(myClasses.targetVideoUrl);
+                thumnailPlayer.Source = new Uri(myClasses.targetVideoUrl);
+                mePlayer.Play();
+            }
+            else if(e.Key.ToString() == "R")
+            {
+                if (myClasses.replayMode == "#27cc4d")
+                {
+                    myClasses.replayMode = "White";
+                }
+                else if (myClasses.replayMode == "White")
+                {
+                    myClasses.replayMode = "#27cc4d";
+                    myClasses.shuffleMode = "White";
+                }
+            }
         }
     }
 }
