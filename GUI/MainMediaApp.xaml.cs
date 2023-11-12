@@ -95,6 +95,7 @@ namespace media_player_windows.GUI
 
                 // Set media source
                 mePlayer.Source = new Uri(myClasses.targetVideoUrl);
+                thumnailPlayer.Source = new Uri(myClasses.targetVideoUrl);
                 mePlayer.Play();
             }
         }
@@ -222,6 +223,40 @@ namespace media_player_windows.GUI
                 myClasses.shuffleMode = "#27cc4d";
                 myClasses.replayMode = "White";
             }
+        }
+
+        private void skipNextBtn_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            int index = myClasses.videos.FindIndex(a => a.url == myClasses.targetVideoUrl);
+
+            // Get next media url
+            if (index != 0) myClasses.targetVideoUrl = myClasses.videos[index - 1].url;
+            else myClasses.targetVideoUrl = myClasses.videos[myClasses.videos.Count - 1].url;
+
+            // Set video duration
+            setMediaDuration(myClasses.targetVideoUrl);
+
+            // Set media source
+            mePlayer.Source = new Uri(myClasses.targetVideoUrl);
+            thumnailPlayer.Source = new Uri(myClasses.targetVideoUrl);
+            mePlayer.Play();
+        }
+
+        private void skipPreviousBtn_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            int index = myClasses.videos.FindIndex(a => a.url == myClasses.targetVideoUrl);
+
+            // Get next media url
+            if (index != (myClasses.videos.Count() - 1)) myClasses.targetVideoUrl = myClasses.videos[index + 1].url;
+            else myClasses.targetVideoUrl = myClasses.videos[0].url;
+
+            // Set video duration
+            setMediaDuration(myClasses.targetVideoUrl);
+
+            // Set media source
+            mePlayer.Source = new Uri(myClasses.targetVideoUrl);
+            thumnailPlayer.Source = new Uri(myClasses.targetVideoUrl);
+            mePlayer.Play();
         }
     }
 }

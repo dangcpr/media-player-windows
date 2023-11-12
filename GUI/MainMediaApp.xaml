@@ -82,9 +82,9 @@
                 <StackPanel HorizontalAlignment="Center" Margin="0 10 0 0" Orientation="Vertical">
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                         <materialDesign:PackIcon Name="shuffleModeBtn" Kind="ShuffleVariant" Foreground="{Binding shuffleMode}" Height="30" Width="30" VerticalAlignment="Center" Margin="0 0 20 0" MouseDown="shuffleModeBtn_MouseDown"/>
-                        <materialDesign:PackIcon Kind="SkipPrevious" Foreground="White" Height="30" Width="30" VerticalAlignment="Center"/>
+                        <materialDesign:PackIcon Name="skipPreviousBtn" Kind="SkipPrevious" Foreground="White" Height="30" Width="30" VerticalAlignment="Center" MouseDown="skipPreviousBtn_MouseDown"/>
                         <materialDesign:PackIcon Name="audioModeBtn" Kind="{Binding audioMode}" Foreground="White" Height="50" Width="50" VerticalAlignment="Center" Margin="20 0 20 0" MouseDown="audioModeBtn_MouseDown"/>
-                        <materialDesign:PackIcon Kind="SkipNext" Foreground="White" Height="30" Width="30" VerticalAlignment="Center"/>
+                        <materialDesign:PackIcon Name="skipNextBtn" Kind="SkipNext" Foreground="White" Height="30" Width="30" VerticalAlignment="Center" MouseDown="skipNextBtn_MouseDown"/>
                         <materialDesign:PackIcon Name="replayModeBtn" Kind="Replay" Foreground="{Binding replayMode}" Height="30" Width="30" VerticalAlignment="Center" Margin="20 0 0 0" MouseDown="replayModeBtn_MouseDown"/>
                     </StackPanel>
 
