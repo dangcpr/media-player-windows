@@ -1,0 +1,125 @@
+﻿<Window x:Class="media_player_windows.GUI.MainMediaApp"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:media_player_windows.GUI"
+        mc:Ignorable="d"
+        
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"       
+        WindowStartupLocation="CenterScreen"
+        ResizeMode="NoResize"
+        Loaded="Window_Loaded"
+        
+        Title="MainMediaApp" Height="750" Width="1280">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="5*"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Row="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+                <ColumnDefinition Width="5*"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+
+            <StackPanel Grid.Column="0" Orientation="Vertical" Background="Black">
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0 30 0 0">
+                    <Image Width="50" Source="../assets/logo.png" Margin="0 0 20 0"/>
+                    <TextBlock VerticalAlignment="Center" Text="Spotifai" FontWeight="Bold" Foreground="White" FontSize="20"/>
+                </StackPanel>
+                
+                <StackPanel Width="150" Height="80" Margin="0 30 0 0">
+                    <MediaElement Name="thumnailPlayer" Width="150" Height="80" LoadedBehavior="Manual" Stretch="Fill" />
+                </StackPanel>
+
+                <StackPanel Margin="5 0 5 0">
+                    <Button Name="addPlaylistBtn" Height="50" Background="Black" BorderThickness="0" Click="addPlaylistBtn_Click">
+                        <StackPanel Orientation="Horizontal" Width="150">
+                            <materialDesign:PackIcon Kind="PlaylistPlus" Foreground="White" Height="30" Width="30" VerticalAlignment="Center" Margin="0 0 20 0"/>
+                            <TextBlock Text="Add Playlist" Foreground="White" FontSize="15" FontWeight="DemiBold" VerticalAlignment="Center"/>
+                        </StackPanel>
+                    </Button>
+                </StackPanel>
+
+                <StackPanel Margin="5 0 5 0">
+                    <Button Name="removeMediaBtn" Height="50" Background="Black" BorderThickness="0" Click="removeMediaBtn_Click">
+                        <StackPanel Orientation="Horizontal" Width="150">
+                            <materialDesign:PackIcon Kind="PlaylistRemove" Foreground="White" Height="30" Width="30" VerticalAlignment="Center" Margin="0 0 20 0"/>
+                            <TextBlock Text="Remove Media" Foreground="White" FontSize="15" FontWeight="DemiBold" VerticalAlignment="Center"/>
+                        </StackPanel>
+                    </Button>
+                </StackPanel>
+            </StackPanel>
+
+            <StackPanel Grid.Column="1" Orientation="Vertical" Background="#141414">
+                <MediaElement Name="mePlayer" Grid.Column="1" Width="500" Height="300" LoadedBehavior="Manual" Stretch="Fill" Margin="0 30 0 30" MediaEnded="mePlayer_MediaEnded" />
+                <ListView Name="playlistListView" Height="200" Margin="20 0 20 0" SelectionChanged="playlist_SelectionChanged">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <Grid Width="900">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"></ColumnDefinition>
+                                    <ColumnDefinition Width="10*"></ColumnDefinition>
+                                    <ColumnDefinition Width="*"></ColumnDefinition>
+                                </Grid.ColumnDefinitions>
+
+                                <materialDesign:PackIcon Grid.Column="0" Kind="MusicNote" Foreground="White" Height="20" Width="20" Margin="0 0 20 0"/>
+                                <StackPanel Grid.Column="1" Orientation="Vertical">
+                                    <TextBlock Text="{Binding name}" Foreground="White" FontWeight="Bold" Margin="0 0 0 10" />
+                                    <TextBlock Text="{Binding author}" Foreground="White" FontWeight="Regular" />
+                                </StackPanel>
+                                <TextBlock Grid.Column="2" Text="{Binding duration}" Foreground="White" FontWeight="Bold" />
+                            </Grid>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </StackPanel>
+        </Grid>
+
+        <Grid Grid.Row="1" Background="#525252">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+                <ColumnDefinition Width="2*"></ColumnDefinition>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+
+            <StackPanel Grid.Column="0">
+                <StackPanel Orientation="Vertical" Margin="0 30 0 0" HorizontalAlignment="Center">
+                    <TextBlock d:Text="Name" FontSize="20" Foreground="White" FontWeight="Bold" Text="{Binding targetVideoName}"/>
+                    <TextBlock d:Text="Name" FontSize="15" Foreground="White" FontWeight="SemiBold" Text="{Binding targetVideoAuthor}"/>
+                </StackPanel>
+            </StackPanel>
+
+            <StackPanel Grid.Column="1">
+                <StackPanel HorizontalAlignment="Center" Margin="0 10 0 0" Orientation="Vertical">
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                        <materialDesign:PackIcon Name="shuffleModeBtn" Kind="ShuffleVariant" Foreground="{Binding shuffleMode}" Height="30" Width="30" VerticalAlignment="Center" Margin="0 0 20 0" MouseDown="shuffleModeBtn_MouseDown"/>
+                        <materialDesign:PackIcon Name="skipPreviousBtn" Kind="SkipPrevious" Foreground="White" Height="30" Width="30" VerticalAlignment="Center" MouseDown="skipPreviousBtn_MouseDown"/>
+                        <materialDesign:PackIcon Name="audioModeBtn" Kind="{Binding audioMode}" Foreground="White" Height="50" Width="50" VerticalAlignment="Center" Margin="20 0 20 0" MouseDown="audioModeBtn_MouseDown"/>
+                        <materialDesign:PackIcon Name="skipNextBtn" Kind="SkipNext" Foreground="White" Height="30" Width="30" VerticalAlignment="Center" MouseDown="skipNextBtn_MouseDown"/>
+                        <materialDesign:PackIcon Name="replayModeBtn" Kind="Replay" Foreground="{Binding replayMode}" Height="30" Width="30" VerticalAlignment="Center" Margin="20 0 0 0" MouseDown="replayModeBtn_MouseDown"/>
+                    </StackPanel>
+
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0 15 0 0">
+                        <TextBlock Foreground="White" Name="lblProgressStatus">00:00:00</TextBlock>
+                        <Slider Name="sliProgress" Width="250" Foreground="#27cc4d" Margin="10 0 10 0" Thumb.DragStarted="sliProgress_DragStarted" Thumb.DragCompleted="sliProgress_DragCompleted" ValueChanged="sliProgress_ValueChanged" />
+                        <TextBlock Foreground="White" Name="lblTimeStatus">00:00:00</TextBlock>
+                    </StackPanel>
+                </StackPanel>
+
+            </StackPanel>
+
+            <StackPanel Grid.Column="2">
+                <StackPanel Orientation="Horizontal" Margin="0 30 0 0" HorizontalAlignment="Center">
+                    <materialDesign:PackIcon Kind="VolumeHigh" Foreground="White" Height="30" Width="30" VerticalAlignment="Center" Margin="0 0 20 0"/>
+                    <Slider Name="sliVolume" Width="200" VerticalAlignment="Center" Foreground="#27cc4d" Margin="10 0 10 0" ValueChanged="sliVolume_ValueChanged" />
+                </StackPanel>
+            </StackPanel>
+        </Grid>
+    </Grid>
+</Window>

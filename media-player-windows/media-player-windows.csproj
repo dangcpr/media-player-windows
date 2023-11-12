@@ -8,4 +8,24 @@
     <UseWPF>true</UseWPF>
   </PropertyGroup>
 
+  <ItemGroup>
+    <None Remove="assets\Font Awesome 6 Free Solid.otf" />
+    <None Remove="assets\Font Awesome 6 Free-Solid-900.otf" />
+    <None Remove="assets\logo.png" />
+    <None Remove="assets\play-solid.jpg" />
+    <None Remove="assets\play-solid.svg" />
+    <None Remove="assets\play.jpg" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="MaterialDesignColors" Version="3.0.0-ci435" />
+    <PackageReference Include="MaterialDesignThemes" Version="5.0.0-ci435" />
+    <PackageReference Include="PropertyChanged.Fody" Version="4.1.0" />
+    <PackageReference Include="TagLibSharp" Version="2.3.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="assets\logo.png" />
+  </ItemGroup>
+
 </Project>
