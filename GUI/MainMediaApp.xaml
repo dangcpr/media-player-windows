@@ -39,9 +39,18 @@
 
                 <StackPanel Margin="5 0 5 0">
                     <Button Name="addPlaylistBtn" Height="50" Background="Black" BorderThickness="0" Click="addPlaylistBtn_Click">
-                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                        <StackPanel Orientation="Horizontal" Width="150">
                             <materialDesign:PackIcon Kind="PlaylistPlus" Foreground="White" Height="30" Width="30" VerticalAlignment="Center" Margin="0 0 20 0"/>
                             <TextBlock Text="Add Playlist" Foreground="White" FontSize="15" FontWeight="DemiBold" VerticalAlignment="Center"/>
+                        </StackPanel>
+                    </Button>
+                </StackPanel>
+
+                <StackPanel Margin="5 0 5 0">
+                    <Button Name="removeMediaBtn" Height="50" Background="Black" BorderThickness="0" Click="removeMediaBtn_Click">
+                        <StackPanel Orientation="Horizontal" Width="150">
+                            <materialDesign:PackIcon Kind="PlaylistRemove" Foreground="White" Height="30" Width="30" VerticalAlignment="Center" Margin="0 0 20 0"/>
+                            <TextBlock Text="Remove Media" Foreground="White" FontSize="15" FontWeight="DemiBold" VerticalAlignment="Center"/>
                         </StackPanel>
                     </Button>
                 </StackPanel>
@@ -80,7 +89,10 @@
             </Grid.ColumnDefinitions>
 
             <StackPanel Grid.Column="0">
-                
+                <StackPanel Orientation="Vertical" Margin="0 30 0 0" HorizontalAlignment="Center">
+                    <TextBlock d:Text="Name" FontSize="20" Foreground="White" FontWeight="Bold" Text="{Binding targetVideoName}"/>
+                    <TextBlock d:Text="Name" FontSize="15" Foreground="White" FontWeight="SemiBold" Text="{Binding targetVideoAuthor}"/>
+                </StackPanel>
             </StackPanel>
 
             <StackPanel Grid.Column="1">
@@ -103,7 +115,10 @@
             </StackPanel>
 
             <StackPanel Grid.Column="2">
-
+                <StackPanel Orientation="Horizontal" Margin="0 30 0 0" HorizontalAlignment="Center">
+                    <materialDesign:PackIcon Kind="VolumeHigh" Foreground="White" Height="30" Width="30" VerticalAlignment="Center" Margin="0 0 20 0"/>
+                    <Slider Name="sliVolume" Width="200" VerticalAlignment="Center" Foreground="#27cc4d" Margin="10 0 10 0" ValueChanged="sliVolume_ValueChanged" />
+                </StackPanel>
             </StackPanel>
         </Grid>
     </Grid>

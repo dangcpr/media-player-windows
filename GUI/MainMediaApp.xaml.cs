@@ -87,8 +87,19 @@ namespace media_player_windows.GUI
                 int index = myClasses.videos.FindIndex(a => a.url == myClasses.targetVideoUrl);
 
                 // Get next media url
-                if(index != (myClasses.videos.Count() - 1)) myClasses.targetVideoUrl = myClasses.videos[index + 1].url;
-                else myClasses.targetVideoUrl = myClasses.videos[0].url;
+                if(index != (myClasses.videos.Count() - 1))
+                {
+                    myClasses.targetVideoUrl = myClasses.videos[index + 1].url;
+                    myClasses.targetVideoName = myClasses.videos[index + 1].name;
+                    myClasses.targetVideoAuthor = myClasses.videos[index + 1].author;
+                }
+                else
+                {
+                    myClasses.targetVideoUrl = myClasses.videos[0].url;
+                    myClasses.targetVideoName = myClasses.videos[0].name;
+                    myClasses.targetVideoAuthor = myClasses.videos[0].author;
+
+                }
 
                 // Set video duration
                 setMediaDuration(myClasses.targetVideoUrl);
@@ -118,6 +129,7 @@ namespace media_player_windows.GUI
             if (open.ShowDialog() == true)
             {
                 myClasses.videos.Clear();
+                playlistListView.ItemsSource = "";
 
                 foreach (String fileName in open.FileNames)
                 {
@@ -144,6 +156,9 @@ namespace media_player_windows.GUI
                 }
 
                 myClasses.targetVideoUrl = myClasses.videos[0].url;
+                myClasses.targetVideoName = myClasses.videos[0].name;
+                myClasses.targetVideoAuthor = myClasses.videos[0].author;
+
 
                 mePlayer.Source = new Uri(myClasses.targetVideoUrl);
                 thumnailPlayer.Source = new Uri(myClasses.targetVideoUrl);
@@ -159,6 +174,10 @@ namespace media_player_windows.GUI
                 playlistListView.ItemsSource = myClasses.videos;
 
                 myClasses.audioMode = "PauseCircle";
+
+                sliVolume.Value = 5.0;
+                var setValue = 0.1 * sliVolume.Value;
+                mePlayer.Volume = setValue;
             }
         }
 
@@ -167,11 +186,40 @@ namespace media_player_windows.GUI
             var item = (ListBox)sender;
             var video = (media_player_windows.classes.Video)item.SelectedItem;
 
-            myClasses.targetVideoUrl = video.url;
-            mePlayer.Source = new Uri(myClasses.targetVideoUrl);
-            thumnailPlayer.Source = new Uri(myClasses.targetVideoUrl);
+            if(video != null)
+            {
+                myClasses.targetVideoUrl = video.url;
+                myClasses.targetVideoName = video.name;
+                myClasses.targetVideoAuthor = video.author;
 
-            setMediaDuration(myClasses.targetVideoUrl);
+                mePlayer.Source = new Uri(myClasses.targetVideoUrl);
+                thumnailPlayer.Source = new Uri(myClasses.targetVideoUrl);
+
+                setMediaDuration(myClasses.targetVideoUrl);
+            }
+            else if (video == null && myClasses.videos.Count != 0)
+            {
+                myClasses.targetVideoUrl = myClasses.videos[0].url;
+                myClasses.targetVideoName = myClasses.videos[0].name;
+                myClasses.targetVideoAuthor = myClasses.videos[0].author;
+
+                mePlayer.Source = new Uri(myClasses.targetVideoUrl);
+                thumnailPlayer.Source = new Uri(myClasses.targetVideoUrl);
+
+                setMediaDuration(myClasses.targetVideoUrl);
+            }
+            else if (video == null && myClasses.videos.Count == 0)
+            {
+                myClasses.targetVideoUrl = "";
+                myClasses.targetVideoName = "";
+                myClasses.targetVideoAuthor = "";
+
+                mePlayer.Stop();
+                mePlayer.Position = TimeSpan.Zero;
+
+                thumnailPlayer.Stop();
+                thumnailPlayer.Position = TimeSpan.Zero;
+            }        
         }
 
         private void sliProgress_DragStarted(object sender, DragStartedEventArgs e)
@@ -238,8 +286,18 @@ namespace media_player_windows.GUI
             int index = myClasses.videos.FindIndex(a => a.url == myClasses.targetVideoUrl);
 
             // Get next media url
-            if (index != 0) myClasses.targetVideoUrl = myClasses.videos[index - 1].url;
-            else myClasses.targetVideoUrl = myClasses.videos[myClasses.videos.Count - 1].url;
+            if (index != 0)
+            {
+                myClasses.targetVideoUrl = myClasses.videos[index - 1].url;
+                myClasses.targetVideoName = myClasses.videos[index - 1].name;
+                myClasses.targetVideoAuthor = myClasses.videos[index - 1].author;
+            }
+            else
+            {
+                myClasses.targetVideoUrl = myClasses.videos[myClasses.videos.Count - 1].url;
+                myClasses.targetVideoName = myClasses.videos[myClasses.videos.Count - 1].name;
+                myClasses.targetVideoAuthor = myClasses.videos[myClasses.videos.Count - 1].author;
+            }
 
             // Set video duration
             setMediaDuration(myClasses.targetVideoUrl);
@@ -255,8 +313,18 @@ namespace media_player_windows.GUI
             int index = myClasses.videos.FindIndex(a => a.url == myClasses.targetVideoUrl);
 
             // Get next media url
-            if (index != (myClasses.videos.Count() - 1)) myClasses.targetVideoUrl = myClasses.videos[index + 1].url;
-            else myClasses.targetVideoUrl = myClasses.videos[0].url;
+            if (index != (myClasses.videos.Count() - 1))
+            {
+                myClasses.targetVideoUrl = myClasses.videos[index + 1].url;
+                myClasses.targetVideoName = myClasses.videos[index + 1].name;
+                myClasses.targetVideoAuthor = myClasses.videos[index + 1].author;
+            }
+            else
+            {
+                myClasses.targetVideoUrl = myClasses.videos[0].url;
+                myClasses.targetVideoName = myClasses.videos[0].name;
+                myClasses.targetVideoAuthor = myClasses.videos[0].author;
+            }
 
             // Set video duration
             setMediaDuration(myClasses.targetVideoUrl);
@@ -265,6 +333,49 @@ namespace media_player_windows.GUI
             mePlayer.Source = new Uri(myClasses.targetVideoUrl);
             thumnailPlayer.Source = new Uri(myClasses.targetVideoUrl);
             mePlayer.Play();
+        }
+
+        private void removeMediaBtn_Click(object sender, RoutedEventArgs e)
+        {
+            List<media_player_windows.classes.Video> filteredList = new List<media_player_windows.classes.Video>();
+
+            for(var i = 0; i < myClasses.videos.Count(); i++)
+            {
+                if (myClasses.videos[i].url != myClasses.targetVideoUrl)
+                {
+                    filteredList.Add(myClasses.videos[i]);
+                }       
+            }
+
+            if(filteredList.Count > 0)
+            {
+                myClasses.targetVideoUrl = filteredList[0].url;
+                myClasses.targetVideoName = filteredList[0].name;
+                myClasses.targetVideoAuthor = filteredList[0].author;
+
+                myClasses.videos = filteredList;
+                playlistListView.ItemsSource = filteredList;
+            }
+            else
+            {
+                myClasses.targetVideoUrl = "";
+                myClasses.targetVideoName = "";
+                myClasses.targetVideoAuthor = "";
+
+                myClasses.videos.Clear();
+                playlistListView.ItemsSource = "";
+            }          
+        }
+
+        private void Grid_MouseWheel(object sender, MouseWheelEventArgs e)
+        {
+            mePlayer.Volume += (e.Delta > 0) ? 0.1 : -0.1;
+        }
+
+        private void sliVolume_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        {
+            var setValue = 0.1 * sliVolume.Value;
+            mePlayer.Volume = setValue;
         }
     }
 }

@@ -11,6 +11,10 @@ namespace media_player_windows.classes
     {
         public string targetVideoUrl { get; set; }
 
+        public string targetVideoName { get; set; }
+
+        public string targetVideoAuthor { get; set; }
+
         public string audioMode { get; set; }
 
         public string replayMode { get; set; }
